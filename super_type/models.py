@@ -2,7 +2,7 @@ from unicodedata import name
 from django.db import models
 
 class SuperType(models.Model):
-    name = models.CharField(max_length=255)
-    power = models.IntegerField()
+    hero = models.CharField(max_length=255)
+    villain = models.CharField(max_length=255)
 
 # Create your models here.
