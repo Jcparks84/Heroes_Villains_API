@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'heroes_villains',
-    'super_type',
+    'Super_Type',
 ]
 
 MIDDLEWARE = [
