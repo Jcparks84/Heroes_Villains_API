@@ -1,6 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import supersSerializer
+from Super_Type.serializers import SuperTypeSerializer
 from .models import Supers
 
 
