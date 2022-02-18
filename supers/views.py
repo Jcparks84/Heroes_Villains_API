@@ -1,10 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-
-from Super_Type.models import SuperType
 from .serializers import HeroesVillainsSerializer
 from .models import HeroesVillains
-from heroes_villains import serializers
 
 
 @api_view(['GET'])
