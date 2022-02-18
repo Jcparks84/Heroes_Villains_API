@@ -22,3 +22,8 @@ urlpatterns = [
     path('api/supers/', include('supers.urls'))
 ]
 
+# Paths must match these exactly!
+
+# · ‘127.0.0.1:8000/api/supers/' - optional params
+
+# · ‘127.0.0.1:8000/api/supers/<int:pk>/’

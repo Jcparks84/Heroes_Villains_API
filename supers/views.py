@@ -5,8 +5,11 @@ from Super_Type.serializers import SuperTypeSerializer
 from .models import Supers
 
 
-@api_view(['GET'])
-def heroes_villains_list(request):
+@api_view(['GET', 'POST'])
+def supers_list(request):
+    # if request.method == 'GET':
+    #     supers = Supers.objects.all()
+    #     serializer = supersSerializer(supers)
     
     super_type_param = request.query_params.get('supertype')
     sort_param = request.query_params.get('sort')
