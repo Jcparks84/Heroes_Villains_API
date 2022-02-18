@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import HeroesVillains
+from .models import Supers
 
 
 # Register your models here.
-admin.site.register(HeroesVillains)
+admin.site.register(Supers)
