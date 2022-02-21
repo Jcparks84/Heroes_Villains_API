@@ -9,11 +9,16 @@ import supers
 
 @api_view(['GET','POST'])
 def supers_list(request):
-    supers_list = SuperType.objects.all()
+    type_param = request.query_params.get('super_type')
+    supers = Supers.objects.all()
+
+    if type_param:
+        supers = supers.filter(super_type__type=type_param)
+        serializer = supersSerializer(supers, many = True)
+        return Response(serializer.data)
 
     if request.method == 'GET':
-        supers = Supers.objects.all()
-        serializer = supersSerializer(supers,many = True)
+        serializer = supersSerializer(supers, many=True)
         return Response(serializer.data)
 
     elif request.method == 'POST':
@@ -25,22 +30,20 @@ def supers_list(request):
 
 @api_view(['GET','PUT', 'DELETE'])
 def super_type_detail(request,pk):
-    supers_details = get_object_or_404(Supers,pk=pk)
-    super_type = get_object_or_404(Supers, pk=pk)
+    super = get_object_or_404(Supers,pk=pk)
 
     if request.method == 'GET':
-        serializer = supersSerializer(super_type)
+        serializer = supersSerializer(super)
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        serializer = supersSerializer(super_type, data=request.data)
+        serializer = supersSerializer(super, data = request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
         
     elif request.method == 'DELETE':
-        super_type.delete()
-
+        super.delete()
         return Response (status = status.HTTP_204_NO_CONTENT)
 
     
