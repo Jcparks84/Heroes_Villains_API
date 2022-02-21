@@ -9,17 +9,24 @@ import supers
 
 @api_view(['GET','POST'])
 def supers_list(request):
-    type_param = request.query_params.get('super_type')
-    supers = Supers.objects.all()
-
-    if type_param:
-        supers = supers.filter(super_type__type=type_param)
-        serializer = supersSerializer(supers, many = True)
-        return Response(serializer.data)
-
     if request.method == 'GET':
+        type_param = request.query_params.get('type')
+        supers = Supers.objects.all()
         serializer = supersSerializer(supers, many=True)
-        return Response(serializer.data)
+        
+        if type_param == 'hero':
+            hero = supers.filter(super_type__type = "Hero")
+            serializer = supersSerializer(hero, many = True)
+            return Response(serializer.data)
+        elif type_param == 'villain':
+            villains = supers.filter(super_type__type = "Villain")
+            serializer = supersSerializer(villains, many = True)
+            return Response(serializer.data)
+        else:
+            return Response(serializer.data)
+
+    
+       
 
     elif request.method == 'POST':
         serializer = supersSerializer(data=request.data)
