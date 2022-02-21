@@ -70,6 +70,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Heroes_Villains_API_Project.wsgi.application'
 
+REST_FRAMEWORK = {
+    'COERCE_DECIMAL_STRING': False
+    }
 
 
 

@@ -4,36 +4,48 @@ from .serializers import supersSerializer
 from .models import Supers
 from rest_framework import status
 from django.shortcuts import get_object_or_404
+from Super_Type.models import SuperType
+import supers
 
-
-@api_view(['GET', 'POST'])
+@api_view(['GET','POST'])
 def supers_list(request):
+    supers_list = SuperType.objects.all()
+
     if request.method == 'GET':
         supers = Supers.objects.all()
-        serializer = supersSerializer(supers, many=True)
+        serializer = supersSerializer(supers,many = True)
         return Response(serializer.data)
-    
+
     elif request.method == 'POST':
         serializer = supersSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response (serializer.data, status = status.HTTP_201_CREATED)
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def supers_detail(request, pk):
-    product = get_object_or_404(Super, pk=pk)
+
+@api_view(['GET','PUT', 'DELETE'])
+def super_type_detail(request,pk):
+    supers_details = get_object_or_404(Supers,pk=pk)
+    super_type = get_object_or_404(Supers, pk=pk)
+
     if request.method == 'GET':
-        serializer = supersSerializer(super)
+        serializer = supersSerializer(super_type)
         return Response(serializer.data)
+
     elif request.method == 'PUT':
-        serializer = supersSerializer(super, data=request.data)
+        serializer = supersSerializer(super_type, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
+        
     elif request.method == 'DELETE':
-        product.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        super_type.delete()
 
+        return Response (status = status.HTTP_204_NO_CONTENT)
+
+    
+    
+    
     # super_type_param = request.query_params.get('supertype')
     # sort_param = request.query_params.get('sort')
 
